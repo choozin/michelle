@@ -89,6 +89,7 @@ const Success = () => {
                         justifyContent: isMobile ? 'flex-start' : 'space-around',
                         alignItems: 'flex-start',
                         width: '100%',
+                        overflowX: 'scroll',
                     }}
                 >
                     {steps.map((step, i) => (

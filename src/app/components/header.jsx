@@ -189,6 +189,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                     justifyContent: 'start',
                                     gap: '24px',
                                     overflowY: 'auto',
+                                    overflowX: 'hidden',
                                 }}>
                                     <div style={{
                                         color: '#222',
