@@ -13,18 +13,6 @@ const AboutMe = () => {
 
     const imageSrc = '/assets/img/michelle.jpg';
 
-    // Track window width for responsiveness
-    const [width, setWidth] = useState(
-        typeof window !== 'undefined' ? window.innerWidth : 1024
-    );
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const isMobile = width < 600;
-
     return (
         <div
             className="about-container"
@@ -49,8 +37,7 @@ const AboutMe = () => {
                 {/* Left: Heading and Profile Image */}
                 <div
                     style={{
-                        width: isMobile ? '100%' : '40%',
-                        maxWidth: '400px',
+                        flex: '0 0 40%',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between', // space between heading and image
@@ -88,7 +75,7 @@ const AboutMe = () => {
                 {/* Right: Content (vertically centered) */}
                 <div
                     style={{
-                        width: isMobile ? '100%' : '55%',
+                        flex: '0 0 55%',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
@@ -137,8 +124,7 @@ const AboutMe = () => {
                                 key={idx}
                                 style={{
                                     flex: 1,
-                                    textAlign: 'center',
-                                    maxWidth: '30%',
+                                    textAlign: 'center'
                                 }}
                             >
                                 <div

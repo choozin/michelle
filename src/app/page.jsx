@@ -1,6 +1,6 @@
 // File: src/app/page.jsx
 'use client';
-//
+
 import { useState } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { usePathname } from 'next/navigation';
