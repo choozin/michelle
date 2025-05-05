@@ -1,0 +1,252 @@
+/* File: src/styles/style.css */
+/*------------------------------------------------------------------
+Project:    Mentor - Mentor & Coach HTML Template
+Version:    1.0
+Last change:19.11.2015
+Assigned to:ThemeStarz
+[Table of contents]
+1. Header
+2. Hero Slider
+3. Elements Styling
+4. Universal classes
+5. Classes
+6. Forms
+7. Responsive
+-------------------------------------------------------------------*/
+
+/* 1. Header */
+.navigation {
+  position: relative;
+  z-index: 99;
+}
+.navigation a { color: black; }
+.navigation .secondary-nav {
+  font-size: 10px; text-transform: uppercase;
+  text-align: right; font-weight: bold;
+  padding: 5px 0;
+}
+.navigation .secondary-nav span {
+  opacity: 0.5; transition: 0.3s; margin-left: 15px;
+}
+.navigation .secondary-nav span:hover { opacity: 1; }
+.navigation .secondary-nav span i { margin-right: 5px; }
+.navigation .nav-toggle {
+  display: none; font-size: 29px;
+  position: absolute; top: -10px; bottom: 0; right: 0;
+  height: 30px; margin: auto; z-index: 999;
+}
+.navigation .main-nav {
+  display: table; width: 100%;
+  padding: 10px 0 20px; position: relative;
+}
+.navigation .main-nav .brand,
+.navigation .main-nav nav {
+  display: table-cell; vertical-align: middle;
+}
+.navigation .main-nav ul {
+  list-style: none; float: right;
+}
+.navigation .main-nav ul li { float: left; }
+.navigation .main-nav ul li.active a { opacity: 1; }
+.navigation .main-nav ul li.active a:after {
+  visibility: visible; opacity: 1;
+}
+.navigation .main-nav ul li a {
+  opacity: 0.6; margin: 5px 15px;
+  text-transform: uppercase; font-weight: bold;
+  font-size: 13px; position: relative;
+}
+.navigation .main-nav ul li a:last-child { margin-right: 0; }
+.navigation .main-nav ul li a:hover {
+  opacity: 1; color: black;
+}
+.navigation .main-nav ul li a:after {
+  content: ""; height: 3px; background-color: #37b048;
+  position: absolute; width: 100%; bottom: -10px; left: 0;
+  opacity: 0; visibility: hidden;
+}
+.navigation .main-nav .icon-shortcut {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 50%; bottom: -32px; background-color: #37b048;
+  height: 65px; width: 65px; position: absolute; right: 0;
+  color: #fff; text-align: center; line-height: 70px;
+}
+.navigation .main-nav .icon-shortcut:hover {
+  background-color: #319d40;
+}
+.navigation .main-nav .icon-shortcut i {
+  transition: 0.5s cubic-bezier(0.93,0.01,0.37,1);
+  display: inline-block; font-size: 24px;
+}
+
+/* 2. Hero Slider */
+/* images in React markup */
+
+/* 3. Elements Styling */
+a { transition: 0.3s; color: #37b048; }
+a:hover,a:focus,a:active {
+  color: #2b8938; text-decoration: none; outline: none!important;
+}
+a.link {
+  font-size: 14px; text-transform: uppercase; font-weight: bold;
+}
+a.link.underline {
+  border-bottom: 3px solid #37b048; padding-bottom: 8px;
+}
+blockquote {
+  margin-bottom: 0; border: none;
+}
+blockquote p {
+  display: inline-block; font-size: 18px;
+  margin-bottom: 10px; position: relative;
+}
+blockquote footer {
+  color: #37b048; text-transform: uppercase;
+  font-size: 12px; font-weight: bold;
+}
+h1 {
+  font-size: 60px; font-weight: bold;
+  color: rgba(0,0,0,0.6); margin-bottom: 30px;
+}
+h2 {
+  font-size: 36px; font-weight: lighter;
+  color: #37b048; margin-bottom: 60px;
+}
+h3 { font-size: 22px; margin-bottom: 30px; }
+h5 { font-size: 16px; }
+hr { border-color: rgba(0,0,0,0.1); }
+
+/* 4. Universal classes */
+.block {
+  padding: 60px 0; overflow: hidden; position: relative;
+}
+.bg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: -1;
+}
+.bg.bg-color-neutral { background-color: #edeae1; }
+.bg.bg-color-default { background-color: #37b048; }
+.bg.bg-color-default-darker { background-color: #2b8938; }
+.bg.bg-color-black { background-color: black; }
+.bg img { max-width: inherit; height: 100%; }
+.center { text-align: center; }
+.circle {
+  border-radius: 50%; border: 2px solid rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* 5. Classes */
+.feature-box > i {
+  color: #37b048; font-size: 56px; margin-bottom: 20px;
+}
+.feature-box h3 { margin: 25px 0 20px; }
+
+/* steps arrows via React icons */
+
+/* 6. Forms */
+/* unchanged */
+
+/* 7. Responsive */
+@media (min-width:992px) and (max-width:1199px) {
+  body { font-size:14px; }
+  h1 { font-size:52px; }
+  .feature-box i { font-size:46px; }
+  .feature-box h3 {
+    font-size:18px; margin-top:20px; margin-bottom:15px;
+  }
+  h2 { font-size:32px; }
+}
+@media (min-width:768px) and (max-width:991px) {
+  body { font-size:14px; }
+  h1 { font-size:48px; }
+  .block { padding:40px 0; }
+  .feature-box { margin-bottom:30px; }
+  .numbers .number figure { font-size:36px; }
+  .bg img { height:100%; }
+  .btn.btn-big { padding:15px 20px; }
+}
+@media (max-width:767px) {
+  .block { padding:20px; }
+  .hero-slider { min-height:50px; }
+  .navigation .nav-toggle { display:block; }
+  .icon-shortcut { display:none; }
+}
+
+/* 1) Calendar header: space nav arrows + month label */
+.calendar.big .mantine-Calendar-calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 2) Days‑of‑week row: spread them out */
+.calendar.big .mantine-Calendar-weekdaysRow {
+  display: flex;
+}
+.calendar.big .mantine-Calendar-weekday {
+  flex: 1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.5rem 0;
+}
+
+/* 3) Month rows: each week is a flex row */
+.calendar.big .mantine-Calendar-monthRow {
+  display: flex;
+}
+.calendar.big .mantine-Calendar-monthCell {
+  flex: 1;
+  text-align: center;
+}
+
+/* 4) Five‑steps section: line them up in a row */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.steps .step {
+  flex: 1 1 18%;    /* approx 5 across with some gutters */
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+/* 5) Feature‑boxes: 4 across like your old .col‑md‑3 */
+#features .mantine-Grid-root {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+#features .mantine-Grid-col {
+  flex: 1 1 25%;
+  max-width: 25%;
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+}
+
+/* 1) Make sure the page overlay isn’t intercepting clicks */
+.overlay {
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 2) Force the Swiper container above everything else */
+.swiper {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* 3) Unblock the default arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  z-index: 20 !important;
+  pointer-events: auto !important;
+}
+
+/* 4) Hide defaults if you want complete custom arrows */
+/*
+.swiper-button-prev,
+.swiper-button-next {
+  display: none !important;
+}
+*/
