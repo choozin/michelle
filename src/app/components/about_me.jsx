@@ -13,6 +13,18 @@ const AboutMe = () => {
 
     const imageSrc = '/assets/img/michelle.jpg';
 
+    // Track window width for responsiveness
+    const [width, setWidth] = useState(
+        typeof window !== 'undefined' ? window.innerWidth : 1024
+    );
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const isMobile = width < 600;
+
     return (
         <div
             className="about-container"
@@ -37,7 +49,8 @@ const AboutMe = () => {
                 {/* Left: Heading and Profile Image */}
                 <div
                     style={{
-                        flex: '0 0 40%',
+                        width: isMobile ? '100%' : '40%',
+                        maxWidth: '400px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between', // space between heading and image
@@ -75,11 +88,12 @@ const AboutMe = () => {
                 {/* Right: Content (vertically centered) */}
                 <div
                     style={{
-                        flex: '0 0 55%',
+                        width: isMobile ? '100%' : '55%',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         height: '100%',
+                        padding: '0 1rem',
                     }}
                 >
                     <h3
@@ -123,7 +137,8 @@ const AboutMe = () => {
                                 key={idx}
                                 style={{
                                     flex: 1,
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    maxWidth: '30%',
                                 }}
                             >
                                 <div

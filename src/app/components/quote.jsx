@@ -32,7 +32,7 @@ const Quote = () => {
         <div
             style={{
                 width: '100%',
-                padding: '6rem 0',
+                padding: '6rem 1rem',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
