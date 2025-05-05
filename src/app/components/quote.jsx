@@ -32,7 +32,7 @@ const Quote = () => {
         <div
             style={{
                 width: '100%',
-                padding: '6rem 1rem',
+                padding: '6rem 0',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -41,7 +41,7 @@ const Quote = () => {
                 fontFamily: '"Lato", sans-serif',
             }}
         >
-            <span style={{ fontSize: '1.25rem', textAlign: 'center', color: '#444' }}>
+            <span style={{ fontSize: '1.25rem', textAlign: 'center', color: '#444', padding: '1rem', }}>
                 {quote}
             </span>
             <span
