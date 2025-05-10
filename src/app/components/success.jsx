@@ -1,212 +1,292 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { FiArrowUpRight } from 'react-icons/fi';
+import React, { useState, useEffect, Fragment } from 'react';
+import { motion } from 'framer-motion';
+import { FiArrowUpRight, FiCheckSquare, FiArrowRight } from 'react-icons/fi';
 
 const Success = () => {
-    // Define the five steps
     const steps = [
-        {
-            title: 'Reach Out',
-            description:
-                'Schedule your free consultation to explore personalized wellness and workplace resilience.'
-        },
-        {
-            title: 'Understand',
-            description:
-                'Assess your current stressors, habits, and support systems for a clear starting point.'
-        },
-        {
-            title: 'Strategize',
-            description:
-                'Co-create a tailored plan with mindfulness techniques, coping tools, and goal-setting.'
-        },
-        {
-            title: 'Implement',
-            description:
-                'Put your plan into action with daily practices, check-ins, and necessary adjustments.'
-        },
-        {
-            title: 'Thrive',
-            description:
-                'Sustain your progress with ongoing support, mental health education, and community resources.'
-        }
+        { title: 'Reach Out', description: 'Schedule your free consultation to explore personalized wellness and workplace resilience solutions tailored to your needs.' },
+        { title: 'Understand', description: 'We collaboratively assess current stressors, team dynamics, and existing support systems to establish a clear baseline for our work together.' },
+        { title: 'Strategize', description: 'Together, we co-create a strategic, actionable plan incorporating proven techniques and clear, measurable objectives for success.' },
+        { title: 'Implement', description: 'Your tailored plan is put into action with guided support, practical workshops, and consistent progress check-ins to ensure effectiveness.' },
+        { title: 'Thrive', description: 'We help you sustain positive changes and foster a culture of ongoing well-being with resources, follow-up support, and continuous improvement strategies.' },
     ];
 
-    // Track window width for responsiveness
-    const [width, setWidth] = useState(
-        typeof window !== 'undefined' ? window.innerWidth : 1024
-    );
+    const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        const updateMedia = () => setIsMobile(window.innerWidth < 768);
+        if (typeof window !== 'undefined') {
+            updateMedia();
+            window.addEventListener('resize', updateMedia);
+            return () => window.removeEventListener('resize', updateMedia);
+        }
     }, []);
 
-    const isMobile = width < 600;
+    const cardNominalWidth = isMobile ? 150 : 170;
+    const cardGap = isMobile ? 16 : 24;
 
-    // Compute bar heights: exponential scale (base 40, factor 1.2)
-    const base = 50;
-    const factor = 1.4;
-    const barHeights = steps.map((_, i) => Math.round(base/2 * Math.pow(factor, i)));
+    const barWidth = isMobile ? 28 : 36;
+    const baseBarHeight = 30;
+    const barGrowthFactor = 1.35;
+    const barHeights = steps.map((_, i) => Math.round(baseBarHeight * Math.pow(barGrowthFactor, i)));
+
+    const numberAndTitleHeight = 65;
+    const topPadding = 15;
+    const bottomPadding = 20;
+    const spaceBetweenBarAndNumber = 10;
+    const spaceBelowTitle = 14;
+
     const maxBarHeight = Math.max(...barHeights);
+    const cardTopSectionHeight = topPadding + maxBarHeight + spaceBetweenBarAndNumber + numberAndTitleHeight + spaceBelowTitle;
+    // MODIFIED: Further increased estimated height for description by another 20% (approx)
+    const estimatedDescriptionHeight = 222;
+    const totalCardHeight = cardTopSectionHeight + estimatedDescriptionHeight + bottomPadding;
+
+    // Framer Motion variants
+    const sectionVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.5 } }
+    };
+    const contentWrapperVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
+    };
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    };
+    const barVariants = (customHeight) => ({
+        hidden: { height: 0, opacity: 0 },
+        visible: {
+            height: customHeight,
+            opacity: 1,
+            transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.4 }
+        },
+    });
+
+    // Engraved text shadow style
+    const engravedLightOnDarkStyle = (color = '#37b048') => ({
+        color: color,
+        textShadow: '0px 1px 1px rgba(0,0,0,0.2), 0px -1px 1px rgba(255,255,255,0.15)',
+    });
+
+    const engravedDarkOnLightStyle = (color = '#333333') => ({
+        color: color,
+        textShadow: '1px 1px 0px rgba(255,255,255,0.5), -1px -1px 0px rgba(0,0,0,0.03)',
+    });
+
 
     return (
-        <div
+        <motion.section
             style={{
                 width: '100%',
-                backgroundColor: '#f0eee9',
-                padding: '3rem 0',
-                fontFamily: '"Lato", sans-serif'
+                backgroundColor: 'rgba(240, 238, 233, 0.85)',
+                backgroundImage: 'url(/assets/textures/soft-wallpaper.png)',
+                backgroundRepeat: 'repeat',
+                padding: 'clamp(3rem, 7vw, 5rem) 0',
+                fontFamily: '"Lato", sans-serif',
+                color: '#444',
+                overflowX: 'hidden',
+                boxShadow: `
+                    inset 0 10px 15px -10px rgba(0,0,0,0.25), 
+                    inset 0 -10px 15px -10px rgba(0,0,0,0.25)
+                `,
+                position: 'relative',
             }}
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
         >
-            <div
+            <motion.div
                 style={{
-                    maxWidth: '1000px',
+                    maxWidth: '1100px',
                     margin: '0 auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
+                    padding: '0 clamp(1rem, 4vw, 2rem)',
                 }}
+                variants={contentWrapperVariants}
             >
-                {/* Heading */}
-                <h2
-                    style={{
-                        color: '#37b048',
-                        fontSize: '2rem',
-                        margin: '0 0 2rem',
-                        textAlign: 'center'
-                    }}
+                {/* Header */}
+                <motion.div
+                    variants={itemVariants}
+                    style={{ marginBottom: 'clamp(2.5rem, 5vw, 4rem)', textAlign: 'center' }}
                 >
-                    Five Steps to Your Success
-                </h2>
-
-                {/* Steps Row */}
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: isMobile ? 'column' : 'row',
-                        justifyContent: isMobile ? 'flex-start' : 'space-around',
-                        alignItems: 'flex-start',
-                        width: '100%',
-                        overflowX: 'scroll',
-                    }}
-                >
-                    {steps.map((step, i) => (
-                        <div
-                            key={i}
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                width: isMobile ? '100%' : 'auto',
-                                marginBottom: isMobile ? '2rem' : 0,
-                                position: 'relative',
-                                padding: '0 1rem',
-                            }}
-                        >
-                            {/* Number */}
-                            <span
-                                style={{
-                                    fontSize: '1rem',
-                                    color: '#666',
-                                    marginBottom: '0.5rem'
-                                }}
-                            >
-                                {i + 1}.
-                            </span>
-
-                            {/* Bar and Arrow Row Container */}
-                            <div
-                                style={{
-                                    height: `${maxBarHeight}px`,
-                                    display: 'flex',
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'space-around',
-                                    width: `${base + 80}px`,
-                                    marginBottom: '1rem',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        width: `${base}px`,
-                                        height: `${barHeights[i]}px`,
-                                        backgroundColor: '#37b048',
-                                        
-                                    }}
-                                />
-                                <div style={{
-                                    marginBottom: `${barHeights[i]-10}px`,
-                                }}>
-                                {!isMobile && i < steps.length - 1 && (
-                                    <FiArrowUpRight
-                                        style={{ color: '#444', fontSize: '1.25rem', transform: 'rotate(30deg)' }}
-                                    />
-                                )}
-                                {isMobile && i < steps.length - 1 && (
-                                    <FiArrowUpRight
-                                        style={{ color: '#444', fontSize: '1.25rem', transform: 'rotate(30deg)' }}
-                                    />
-                                )}
-                                </div>
-                            </div>
-
-                            {/* Title */}
-                            <span
-                                style={{
-                                    fontSize: '1rem',
-                                    color: '#37b048',
-                                    marginBottom: '1rem',
-                                    textAlign: 'center'
-                                }}
-                            >
-                                {step.title}
-                            </span>
-
-                            {/* Divider */}
-                            <hr
-                                style={{
-                                    border: 'none',
-                                    borderTop: '1px solid #ccc',
-                                    width: '80%',
-                                    margin: '0.5rem 0'
-                                }}
-                            />
-
-                            {/* Description */}
-                            <p
-                                style={{
-                                    fontSize: '0.875rem',
-                                    color: '#666',
-                                    textAlign: 'left',
-                                    maxWidth: '200px'
-                                }}
-                            >
-                                {step.description}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* CTA Button */}
-                <button
-                    onClick={() => alert('Contact Me clicked!')}
-                    style={{
-                        marginTop: '1rem',
-                        padding: '1rem 2rem',
-                        fontSize: '1rem',
+                    <h2 style={{
+                        fontSize: 'clamp(2rem, 5vw, 2.8rem)',
+                        ...engravedLightOnDarkStyle('#37b048'),
+                        margin: '0 0 1rem',
                         fontWeight: 'bold',
-                        color: '#37b048',
-                        background: 'transparent',
-                        border: '2px solid #37b048',
-                        borderRadius: '999px',
-                        cursor: 'pointer'
+                        letterSpacing: '-0.03em',
+                    }}>
+                        Five Steps to Success
+                    </h2>
+                    <p style={{
+                        fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                        lineHeight: '1.75',
+                        color: '#4a5568',
+                        maxWidth: '750px',
+                        margin: '0 auto',
+                    }}>
+                        Our proven process guides your organization from initial consultation through lasting cultural change—ensuring measurable ROI and a resilient workplace.
+                    </p>
+                </motion.div>
+
+                {/* Steps Container */}
+                <motion.div
+                    variants={itemVariants}
+                    style={{
+                        width: '100%',
+                        overflowX: isMobile ? 'auto' : 'visible',
+                        paddingBottom: isMobile ? '1.5rem' : '0.5rem',
+                        WebkitOverflowScrolling: 'touch',
                     }}
                 >
-                    CONTACT ME!
-                </button>
-            </div>
-        </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: isMobile ? 'flex-start' : 'center',
+                            alignItems: 'flex-end',
+                            gap: `clamp(${cardGap * 0.8}px, 2vw, ${cardGap}px)`,
+                            minWidth: isMobile ? `${steps.length * (cardNominalWidth + cardGap)}px` : 'auto',
+                            paddingLeft: isMobile ? `clamp(1rem, 4vw, 2rem)` : '0',
+                            paddingRight: isMobile ? `clamp(1rem, 4vw, 2rem)` : '0',
+                        }}
+                    >
+                        {steps.map((step, i) => (
+                            <Fragment key={i}>
+                                <motion.div
+                                    variants={itemVariants}
+                                    whileHover={{ scale: 1.03, y: -5, boxShadow: '0 14px 35px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.25)' }} // Added whileHover
+                                    style={{
+                                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                                        backdropFilter: 'blur(10px)',
+                                        WebkitBackdropFilter: 'blur(10px)',
+                                        borderRadius: '16px',
+                                        boxShadow: '0 10px 30px rgba(0,0,0,0.12), inset 0 1px 0px rgba(255,255,255,0.2)',
+                                        flex: `0 0 ${cardNominalWidth}px`,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        padding: '1rem',
+                                        height: `${totalCardHeight}px`, // Uses updated totalCardHeight
+                                        boxSizing: 'border-box',
+                                        textAlign: 'center',
+                                        position: 'relative',
+                                        border: '1px solid rgba(255,255,255,0.25)',
+                                        cursor: 'pointer', // Indicate interactivity
+                                    }}
+                                >
+                                    {/* This div contains bar, number, and title. flexGrow pushes description down. */}
+                                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
+                                        {/* Bar container */}
+                                        <div style={{ width: `${barWidth}px`, marginTop: `${topPadding}px`, display: 'flex', alignItems: 'flex-end', height: `${maxBarHeight}px` }}>
+                                            <motion.div
+                                                custom={barHeights[i]}
+                                                variants={barVariants(barHeights[i])}
+                                                style={{
+                                                    width: '100%',
+                                                    background: 'linear-gradient(to top, #37b048, #45cc58)',
+                                                    borderRadius: '4px 4px 0 0',
+                                                    boxShadow: '0 -2px 5px rgba(0,0,0,0.1) inset, 0 2px 3px rgba(0,0,0,0.1)',
+                                                }}
+                                            />
+                                        </div>
+
+                                        {/* Number and Title section */}
+                                        <div style={{
+                                            height: `${numberAndTitleHeight}px`,
+                                            display: 'flex', flexDirection: 'column',
+                                            alignItems: 'center', justifyContent: 'center',
+                                            marginTop: `${spaceBetweenBarAndNumber}px`,
+                                            width: '100%',
+                                        }}>
+                                            <div style={{
+                                                width: '38px', height: '38px',
+                                                borderRadius: '50%',
+                                                backgroundColor: 'rgba(55, 176, 72, 0.2)',
+                                                border: `1px solid rgba(55, 176, 72, 0.5)`,
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                marginBottom: '0.6rem',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                            }}>
+                                                <span style={{ fontWeight: 'bold', ...engravedDarkOnLightStyle('#2a8a36'), fontSize: '1.05rem' }}>{i + 1}</span>
+                                            </div>
+                                            <h3 style={{
+                                                margin: 0,
+                                                ...engravedDarkOnLightStyle('#333333'),
+                                                fontSize: 'clamp(1.05rem, 2vw, 1.2rem)',
+                                                fontWeight: 'bold',
+                                                lineHeight: '1.25',
+                                                maxHeight: '2.5em',
+                                                overflow: 'hidden',
+                                            }}>
+                                                {step.title}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    {/* Card Description */}
+                                    <p style={{
+                                        margin: 0,
+                                        marginTop: `${spaceBelowTitle}px`,
+                                        color: '#303030',
+                                        lineHeight: '1.55',
+                                        fontSize: 'clamp(0.8rem, 1.5vw, 0.875rem)',
+                                        width: '100%',
+                                        paddingBottom: `${bottomPadding}px`,
+                                    }}>
+                                        {step.description}
+                                    </p>
+                                </motion.div>
+
+                                {i < steps.length - 1 && !isMobile && (
+                                    <motion.div
+                                        variants={itemVariants}
+                                        style={{
+                                            alignSelf: 'flex-start',
+                                            marginTop: `${totalCardHeight - maxBarHeight - numberAndTitleHeight - (spaceBetweenBarAndNumber / 2) - 28}px`,
+                                            padding: '0 clamp(0.25rem, 1vw, 0.5rem)',
+                                        }}
+                                    >
+                                        <FiArrowUpRight style={{ color: 'rgba(0,0,0,0.35)', fontSize: '1.8rem', transform: 'rotate(25deg) translateY(-5px)', opacity: 0.6 }} />
+                                    </motion.div>
+                                )}
+                            </Fragment>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* Call to Action */}
+                <motion.div variants={itemVariants} style={{ textAlign: 'center', marginTop: 'clamp(2.5rem, 5vw, 4rem)' }}>
+                    <motion.a
+                        href="/contact"
+                        style={{
+                            display: 'inline-flex', alignItems: 'center',
+                            padding: '0.9rem 2.75rem',
+                            background: 'linear-gradient(to bottom, rgba(55, 176, 72, 0.85), rgba(47, 154, 54, 0.95))',
+                            color: '#fff',
+                            borderRadius: '50px', textDecoration: 'none',
+                            fontSize: 'clamp(1rem, 1.8vw, 1.1rem)', fontWeight: 'bold',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            boxShadow: '0 6px 18px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25)',
+                            transition: 'background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease',
+                            textShadow: '0 1px 2px rgba(0,0,0,0.25)',
+                        }}
+                        whileHover={{
+                            background: 'linear-gradient(to bottom, rgba(69, 204, 88, 0.9), rgba(55, 176, 72, 1))',
+                            y: -3,
+                            boxShadow: '0 8px 22px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.3)'
+                        }}
+                        whileTap={{ scale: 0.97 }}
+                    >
+                        Begin Your Transformation
+                        <FiArrowRight style={{ marginLeft: '0.75rem', fontSize: '1.2em' }} />
+                    </motion.a>
+                </motion.div>
+            </motion.div>
+        </motion.section>
     );
 };
 

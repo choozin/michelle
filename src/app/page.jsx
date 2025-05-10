@@ -27,7 +27,7 @@ import {
 } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
-import { Calendar } from '@mantine/dates';
+//import { Calendar } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import {
   FaBars,
@@ -55,6 +55,9 @@ import Quote from './components/quote';
 import AboutMe from './components/about_me';
 import Subscribe from './components/subscribe';
 import Success from './components/success';
+import Calendar from './components/calendar';
+import Testimonials from './components/testimonials';
+import WorkingMind from './components/working_mind';
 
 export default function HomePage() {
   // determine current path slug for underline logic
@@ -80,8 +83,31 @@ export default function HomePage() {
           <MainDirectory />
           <Quote />
           <AboutMe />
-          <Subscribe />
+          <WorkingMind />
+          <Subscribe
+            divStyle="container"                        // dark panel inside a white wrapper
+            title="Your Daily Motivation & Wellness Insight"
+            content="Subscribe to receive uplifting quotes, wellness tips, and mental health education delivered straight to your inbox."
+            showName={false}                             // no name field
+            bgColor="#999"                               // inner panel color
+            inputPlaceholderEmail="Enter your e-mail"
+            buttonText="→"
+            buttonStyle="arrow"                          // the small arrow button
+          />
+          <Calendar />
           <Success />
+          <Subscribe
+            divStyle="fullWidth"                         // full-bleed background
+            title="Discover Your True Potential"
+            content="Enter your name and e-mail and I’ll send you a free guide to building lasting mental-wellness & workplace resilience."
+            showName={true}                              // renders both name + email inputs
+            bgColor="#f7f6f3"                            // off-white background
+            inputPlaceholderName="Your Name"
+            inputPlaceholderEmail="Your E-mail"
+            buttonText="SEND ME"
+            buttonStyle="pill"                           // the green pill-shaped button
+          />
+          <Testimonials />
         </div>
       </div >
     </>

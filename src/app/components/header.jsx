@@ -47,6 +47,8 @@ import '@fontsource/lato/400.css';
 import '@fontsource/lato/700.css';
 import '@fontsource/lato/900.css';
 
+import { motion } from 'framer-motion';
+
 export default function Header({ currentSlug, navOpened, setNavOpened }) {
 
     const isMobile = useMediaQuery('(max-width: 768px)');
@@ -63,9 +65,52 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
 
     return (
         <div>
-            <header className="navigation" id="top">
-                {/* Secondary Nav */}
-                <Container size="lg">
+            <div style={{
+                width: '100%',
+                height: '100px',
+                backgroundColor: 'white',
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '0.5rem',
+            }}>
+                <div style={{
+                    height: '100%',
+                    width: '300px',
+                    maxWidth: '90%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}>
+                    <div style={{
+                        width: '100%',
+                        textDecoration: 'uppercase',
+                        lineHeight: '1',
+                        // slight golden glow around text
+                        textShadow: '0px 0px 2px #655',
+                        color: '#655',
+                        fontSize: '2rem',
+                        fontWeight: '900',
+                    }}>
+                        BRAVE CHANGE COACHING
+                    </div>
+                    <div style={{
+                        width: '100%',
+                        fontSize: '0.75rem',
+                        fontFamily: '"Lato", sans-serif',
+                    }}>
+                        Your Journey to Brilliance
+                    </div>
+                </div>
+                <div style={{
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: '10%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                }}>
                     <Group
                         style={{
                             display: 'flex',
@@ -77,7 +122,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                             fontFamily: '"Lato", sans-serif',
                             fontWeight: '500',
                             textTransform: 'uppercase',
-                            paddingRight: '16px',
+                            paddingRight: '2rem',
                         }}
                     >
                         <span
@@ -99,30 +144,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                             <FaPhone /> 519‑222‑7995
                         </span>
                     </Group>
-                </Container>
-
-                {/* Main Nav */}
-                <Container size="lg">
-                    <Group
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            width: '100%',
-                            padding: '0 1rem',
-                            boxSizing: 'border-box',
-                        }}
-                    >
-                        {/* Brand */}
-                        <Link href="/" passHref>
-                            <Image
-                                src="/assets/img/logo.png"
-                                alt="Logo"
-                                width={150}
-                                height={50}
-                            />
-                        </Link>
-
+                    <div style={{ width: '768px', marginRight: '2rem',}}>
                         {/* Desktop Links */}
                         <Group
                             style={{
@@ -133,7 +155,10 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                             }}
                         >
                             {navLinks.map((link) => (
-                                <Anchor key={link.slug} href={link.href}
+                                <motion.Anchor key={link.slug} href={link.href}
+                                    initial={{ opacity: 0, y: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    whileHover={{ y: -3, }}
                                     style={{
                                         color: '#444',
                                         textDecoration: 'none',
@@ -146,11 +171,12 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                             currentSlug === link.slug
                                                 ? '3px solid #37b048'
                                                 : 'none',
+                                        cursor: 'pointer',
                                     }}
                                     underline={false}
                                 >
                                     {link.label}
-                                </Anchor>
+                                </motion.Anchor>
                             ))}
                         </Group>
 
@@ -160,9 +186,6 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                             justifyContent: 'end',
                             width: '100%',
                         }}>
-                            <div
-                                onClick={() => alert('menu')}
-                            />
                             <FaBars style={{
                                 display: isMobile ? 'flex' : 'none',
                                 justifyContent: 'center',
@@ -170,6 +193,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                 color: '#444',
                                 fontSize: '30px',
                                 marginRight: '16px',
+                                cursor: 'pointer',
                             }}
                                 onClick={() => setNavOpened(true)}
                             />
@@ -243,10 +267,9 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                 </div>
                             )}
                         </div>
-
-                    </Group>
-                </Container>
-            </header>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
