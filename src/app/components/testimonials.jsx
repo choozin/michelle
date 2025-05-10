@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaUserCircle } from 'react-icons/fa'; // Fallback icon
+import { FaUserCircle } from 'react-icons/fa';
 
 const Testimonials = () => {
-    const allTestimonials = [
+    // Wrapped allTestimonials in React.useMemo for stable reference
+    const allTestimonials = React.useMemo(() => [
         {
             name: 'Jane D., Project Manager',
             text: 'Working with Michelle transformed our team dynamics. Her tailored strategies and supportive guidance led to measurable growth in productivity and overall morale. A truly impactful experience for our organization!',
@@ -32,18 +33,19 @@ const Testimonials = () => {
             text: 'The evidence-based modules from The Working Mind program empowered me with resilience skills that directly translate to better focus and decision-making under pressure. Highly recommended.',
             image: 'https://placehold.co/80x80/e6f8ec/37b048?text=OM&font=lato',
         },
-        { // Adding a 6th testimonial to better test layout with more cards
+        {
             name: 'David K., Entrepreneur',
             text: 'As a solo founder, managing stress is crucial. Michelle\'s coaching provided invaluable tools for maintaining balance and focus, directly impacting my business\'s success.',
             image: 'https://placehold.co/80x80/e6f8ec/37b048?text=DK&font=lato',
         },
-    ];
+    ], []); // Empty dependency array for useMemo as the data itself is static here
 
     const [displayed, setDisplayed] = useState([]);
+
     useEffect(() => {
         const shuffled = [...allTestimonials].sort(() => 0.5 - Math.random());
         setDisplayed(shuffled.slice(0, 3));
-    }, []);
+    }, [allTestimonials]); // CORRECTED: Added allTestimonials to dependency array
 
     const sectionVariants = {
         hidden: { opacity: 0 },
@@ -137,7 +139,7 @@ const Testimonials = () => {
                                     justifyContent: 'space-between',
                                 }}
                             >
-                                <div> {/* Content wrapper for image and text */}
+                                <div>
                                     <div
                                         style={{
                                             width: '75px',
@@ -168,7 +170,7 @@ const Testimonials = () => {
                                     <p
                                         style={{
                                             fontStyle: 'italic',
-                                            color: '#4E342E', // MODIFIED: Dark warm brown for quote text
+                                            color: '#4E342E',
                                             lineHeight: '1.75',
                                             margin: '0 0 1.25rem',
                                             fontSize: 'clamp(0.88rem, 1.7vw, 0.98rem)',
@@ -182,7 +184,7 @@ const Testimonials = () => {
                                     marginTop: 'auto',
                                     paddingTop: '1rem',
                                     fontWeight: 'bold',
-                                    color: '#3E2723', // MODIFIED: Slightly richer dark brown for name
+                                    color: '#3E2723',
                                     fontSize: 'clamp(0.92rem, 1.75vw, 1.02rem)',
                                 }}>
                                     — {testimonial.name}
