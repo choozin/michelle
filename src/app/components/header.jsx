@@ -67,7 +67,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
         <div>
             <div style={{
                 width: '100%',
-                height: '100px',
+                height: '64px',
                 backgroundColor: 'white',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -93,14 +93,14 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                         fontWeight: '900',
                     }}>
                         BRAVE CHANGE COACHING
-                    </div>
+                    </div>{/*
                     <div style={{
                         width: '100%',
                         fontSize: '0.75rem',
                         fontFamily: '"Lato", sans-serif',
                     }}>
                         Your Journey to Brilliance
-                    </div>
+                    </div>*/}
                 </div>
                 <div style={{
                     height: '100%',
