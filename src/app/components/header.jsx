@@ -64,7 +64,11 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
     ];
 
     return (
-        <div>
+        <div
+        style={{
+            width: '100vw',
+            overflowX: 'hidden',
+        }}>
             <div style={{
                 width: '100%',
                 height: '64px',
@@ -113,7 +117,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                 }}>
                     <Group
                         style={{
-                            display: 'flex',
+                            display: isMobile ? 'none' : 'flex',
                             alignItems: 'center',
                             justifyContent: 'end',
                             gap: '16px',
@@ -144,7 +148,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                             <FaPhone /> 519‑222‑7995
                         </span>
                     </Group>
-                    <div style={{ width: '768px', marginRight: '2rem',}}>
+                    <div style={{ width: '768px', marginRight: '2rem', }}>
                         {/* Desktop Links */}
                         <Group
                             style={{
@@ -190,7 +194,7 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                 display: isMobile ? 'flex' : 'none',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                color: '#444',
+                                color: '#655',
                                 fontSize: '30px',
                                 marginRight: '16px',
                                 cursor: 'pointer',
@@ -264,6 +268,31 @@ export default function Header({ currentSlug, navOpened, setNavOpened }) {
                                     >
                                         Exit
                                     </div>
+                                    <span
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '4px',
+                                                marginTop: '32px',
+                                                fontFamily: '"Lato", sans-serif',
+                                                fontWeight: '500',
+                                                fontSize: '16px',
+                                            }}
+                                        >
+                                            <FaEnvelope /> michelle@outlook.com
+                                        </span>
+                                        <span
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '4px',
+                                                fontFamily: '"Lato", sans-serif',
+                                                fontWeight: '500',
+                                                fontSize: '16px',
+                                            }}
+                                        >
+                                            <FaPhone /> 519‑222‑7995
+                                        </span>
                                 </div>
                             )}
                         </div>

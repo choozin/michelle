@@ -189,15 +189,17 @@ const AboutMe = () => {
                             <motion.div
                                 variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
                                 style={{
-                                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                                    gap: '1rem', borderTop: '1px solid rgba(0,0,0,0.08)',
-                                    paddingTop: '1.5rem', marginBottom: '2rem',
+                                    display: 'flex',
+                                    justifyContent: 'space-around', 
+                                    borderTop: '1px solid rgba(0,0,0,0.08)',
+                                    paddingTop: '1.5rem', 
+                                    marginBottom: '2rem',
                                 }}
                             >
                                 {stats.map((stat, idx) => (
                                     <motion.div
                                         key={stat.label || idx} variants={itemVariants}
-                                        style={{ textAlign: 'center', padding: '0.25rem' }}
+                                        style={{ textAlign: 'center', padding: '0.25rem', width: '30%' }}
                                     >
                                         <stat.icon style={{ fontSize: 'clamp(2rem, 4vw, 2.2rem)', color: '#37b048', marginBottom: '0.5rem' }} />
                                         <div style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)', color: '#333', fontWeight: 'bold', marginBottom: '0.2rem' }}>

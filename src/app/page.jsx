@@ -58,6 +58,7 @@ import Success from './components/success';
 import Calendar from './components/calendar';
 import Testimonials from './components/testimonials';
 import WorkingMind from './components/working_mind';
+import Footer from './components/footer';
 
 export default function HomePage() {
   // determine current path slug for underline logic
@@ -108,6 +109,7 @@ export default function HomePage() {
             buttonStyle="pill"                           // the green pill-shaped button
           />
           <Testimonials />
+          <Footer />
         </div>
       </div >
     </>
