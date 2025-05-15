@@ -36,17 +36,17 @@ const WorkingMind = () => {
   const featureCards = [
     {
       title: 'Executive Resilience',
-      img: '/images/mental-fitness-placeholder.png', // Ensure these paths are correct or use fallbacks
+      img: '/images/blue_book.png', // Ensure these paths are correct or use fallbacks
       desc: 'Structured modules for leadership mindfulness, stress management, and strategic decision-making under pressure.',
     },
     {
       title: 'Team Wellbeing & Cohesion',
-      img: '/images/resilience-placeholder.png',
+      img: '/images/red_hammer.png',
       desc: 'Interactive workshops that reduce stigma, encourage support, and improve overall team collaboration and morale.',
     },
     {
       title: 'Measurable Performance ROI',
-      img: '/images/performance-placeholder.png',
+      img: '/images/green_heart.png',
       desc: 'Analytics-driven approach to measure program impact on productivity, retention, and key business outcomes.',
     },
   ];

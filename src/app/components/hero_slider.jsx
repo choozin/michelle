@@ -15,28 +15,28 @@ import { FiChevronLeft, FiChevronRight, FiArrowRight } from 'react-icons/fi';
 
 const slidesData = [
     {
-        image: '/assets/img/blog-01.jpg',
+        image: '/images/presentation.webp',
         subhead: 'Hi, I’m Michelle Harding. Your Personal Wellness Coach',
         headline: 'Unlock Your Potential,<br/>Elevate Your Wellbeing!',
         buttonText: 'Discover How',
         buttonHref: '/five-steps-to-success',
     },
     {
-        image: '/assets/img/blog-02.jpg',
+        image: '/images/office.webp',
         subhead: 'Together, We Can Achieve',
         headline: 'Resilient Teams,<br/>Thriving Workplaces',
         buttonText: 'Explore Solutions',
         buttonHref: '/workplace-wellness',
     },
     {
-        image: '/assets/img/hero-placeholder-3.jpg',
+        image: '/images/mind.webp',
         subhead: 'Mental Fitness for Modern Challenges',
         headline: 'The Working Mind:<br/>Empower Your Organization',
         buttonText: 'Learn About TWM',
         buttonHref: '/programs/the-working-mind',
     },
     {
-        image: '/assets/img/hero-placeholder-4.jpg',
+        image: '/images/pond.webp',
         subhead: 'Invest in Your Most Valuable Asset',
         headline: 'Cultivate a Culture<br/>of Mental Wellness',
         buttonText: 'Get Started',

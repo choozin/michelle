@@ -67,6 +67,7 @@ const Testimonials = () => {
 
     return (
         <motion.section
+            id="testimonials"
             style={{
                 width: '100%',
                 backgroundColor: 'rgba(220, 240, 220, 0.85)',

@@ -65,7 +65,7 @@ const AboutMe = () => {
         { icon: FiUsers, label: 'Nurse Interns Mentored', value: '160+' },
         { icon: FiAward, label: 'Specialized Certifications', value: '12' }
     ];
-    const imageSrc = '/assets/img/michelle.jpg';
+    const imageSrc = '/images/presentation.webp';
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -85,21 +85,23 @@ const AboutMe = () => {
         : 'clamp(260px, 75vw, 350px)';
 
     return (
-        <div style={{
-            width: '100%',
-            backgroundColor: 'rgba(240, 238, 233, 0.85)',
-            backgroundImage: 'url(/assets/textures/soft-wallpaper.png)',
-            backgroundRepeat: 'repeat',
-            backgroundPosition: `0% ${backgroundOffsetY}px`,
-            padding: 'clamp(3rem, 7vw, 5rem) clamp(1rem, 5vw, 3rem)',
-            fontFamily: '"Lato", sans-serif', display: 'flex',
-            justifyContent: 'center', boxSizing: 'border-box', overflowX: 'hidden',
-            boxShadow: `
+        <div
+            id="about-me"
+            style={{
+                width: '100%',
+                backgroundColor: 'rgba(240, 238, 233, 0.85)',
+                backgroundImage: 'url(/assets/textures/soft-wallpaper.png)',
+                backgroundRepeat: 'repeat',
+                backgroundPosition: `0% ${backgroundOffsetY}px`,
+                padding: 'clamp(3rem, 7vw, 5rem) clamp(1rem, 5vw, 3rem)',
+                fontFamily: '"Lato", sans-serif', display: 'flex',
+                justifyContent: 'center', boxSizing: 'border-box', overflowX: 'hidden',
+                boxShadow: `
                 inset 0 10px 15px -10px rgba(0,0,0,0.3), 
                 inset 0 -10px 15px -10px rgba(0,0,0,0.3)
             `,
-            position: 'relative',
-        }}>
+                position: 'relative',
+            }}>
             <div style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
                 maxWidth: '1200px', width: '100%', gap: 'clamp(2rem, 4vw, 3rem)',
@@ -176,23 +178,40 @@ const AboutMe = () => {
                     >
                         <div style={{ textAlign: isDesktop ? 'left' : 'center' }}>
                             <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '1.25rem' }}>
-                                With a rich career spanning over 30 years as a dedicated Registered Nurse (RN), Michelle Harding brings a profound depth of experience from the front lines of healthcare. Her tenure includes impactful leadership, management, and mentorship positions at the London Health Sciences Centre, where she was instrumental in guiding and developing nursing talent. This extensive hands-on experience has instilled in her a critical understanding of the daily stressors faced by individuals in demanding environments and the paramount importance of robust mental well-being.
+                                Hi, I’m Michelle — founder of Brave Change Coaching, a space created to help people move through transitions with clarity, courage, and confidence.
                             </p>
                             <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '1.5rem' }}>
                                 {/* CORRECTED unescaped apostrophes */}
+                                With over 36 years of experience as a Registered Nurse (BScN), Nurse leader and Mental Health Advocate, I’ve spent my career guiding, mentoring, and coaching individuals through moments of challenge, growth, and reinvention. As a certified coach and seasoned nurse and facilitator, I’ve supported patients, nurses, students, and professionals in setting meaningful goals, navigating change, and reconnecting with their inner strength.
+                            </p>
+                            <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '2rem' }}>
+                                Now, through Brave Change Coaching, I bring that same commitment into one-on-one coaching sessions designed to support personal breakthroughs. Whether you’re seeking direction, wrestling with getting things done, or simply ready for something more, I’m here to walk beside you — not to push, but to partner with you.
+                            </p>
+                            <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '2rem' }}>
+                                My coaching style is heart-centered, action-oriented, and deeply personalized. Every package includes tools like goal-tracking worksheets and a recorded personalized vision statement — because I believe in creating tangible momentum and lasting transformation.
+                            </p>
+                            <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '2rem' }}>
+                                Let’s explore what brave change looks like for you. You’re not stuck — you’re stepping into who you truly are.
+                            </p>
+                            {/*
+                            <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '1.25rem' }}>
+                                With a rich career spanning over 30 years as a dedicated Registered Nurse (RN), Michelle Harding brings a profound depth of experience from the front lines of healthcare. Her tenure includes impactful leadership, management, and mentorship positions at the London Health Sciences Centre, where she was instrumental in guiding and developing nursing talent. This extensive hands-on experience has instilled in her a critical understanding of the daily stressors faced by individuals in demanding environments and the paramount importance of robust mental well-being.
+                            </p>
+                            <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '1.5rem' }}>
                                 Transitioning her focus, Michelle now dedicates her expertise to fostering mental resilience and wellness within workplaces and for individuals. She provides tailored Wellness Coaching, drawing on her empathetic nursing background to connect deeply with her clients. As a certified facilitator of &apos;The Working Mind&apos; (TWM) program, developed by the Mental Health Commission of Canada, she equips teams and leaders with evidence-based skills to recognize, respond to, and support mental health challenges. Her approach combines the structured, proven framework of TWM with personalized insights from her nursing career, aiming to cultivate psychologically safe, supportive, and high-performing work environments.
                             </p>
                             <p style={{ fontSize: 'clamp(1rem, 1.7vw, 1.1rem)', lineHeight: 1.7, color: '#4a4a4a', marginBottom: '2rem' }}>
                                 Michelle is passionate about destigmatizing mental health conversations and empowering organizations to proactively invest in their most valuable asset: their people. Her coaching and workshops are designed to be engaging, practical, and directly applicable, leading to tangible improvements in employee well-being, team cohesion, and overall workplace culture.
                             </p>
+                            */}
 
                             <motion.div
                                 variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
                                 style={{
                                     display: 'flex',
-                                    justifyContent: 'space-around', 
+                                    justifyContent: 'space-around',
                                     borderTop: '1px solid rgba(0,0,0,0.08)',
-                                    paddingTop: '1.5rem', 
+                                    paddingTop: '1.5rem',
                                     marginBottom: '2rem',
                                 }}
                             >
