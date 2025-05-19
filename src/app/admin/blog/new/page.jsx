@@ -5,10 +5,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createBlogPost, generateSlug } from '@/lib/blogDataService';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { firebaseApp } from '@/lib/firebaseConfig';
-import Link from 'next/link'; // Import Link
+import { firebaseApp } from '@/lib/firebaseConfig'; // Corrected import
+import Link from 'next/link';
 
-// ... (keep all your style consts) ...
+// --- Style Constants (keep as they are in your file) ---
 const formRowStyle = { marginBottom: '15px', display: 'flex', flexDirection: 'column' };
 const labelStyle = { marginBottom: '5px', fontWeight: 'bold', fontSize: '0.9rem', color: '#333' };
 const inputStyle = { padding: '10px', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem', fontFamily: '"Lato", sans-serif', width: '100%', boxSizing: 'border-box' };
@@ -18,17 +18,20 @@ const containerStyle = { maxWidth: '800px', margin: '2rem auto', padding: '2rem'
 const noteStyle = { marginTop: '5px', fontSize: '0.8em', color: '#555' };
 const subHeadingStyle = {marginTop: '2rem', marginBottom: '1rem', color: '#37b048', borderTop: '1px solid #ddd', paddingTop: '1rem', fontSize: '1.2rem'};
 
+// SOLUTION for exhaustive-deps: Define allowedAdminUIDs outside the component
+const allowedAdminUIDs = [
+    'Lc2qRorT0zWMcEiIetpIHI5yOg73',
+    'MICHELLES_UID_HERE' // REMEMBER TO REPLACE THIS
+];
 
 export default function NewBlogPostPage() {
     const router = useRouter();
+    // currentSlug is not used in this component, so we can remove its derivation if it was here.
+    // const params = useParams(); // Not needed here as it's a 'new' page, not 'edit/[slug]'
+    // const currentSlug = params.slug; // Not applicable
 
     const [authStatus, setAuthStatus] = useState({ loading: true, isAdmin: false, user: null });
-    const allowedAdminUIDs = [
-        'Lc2qRorT0zWMcEiIetpIHI5yOg73',
-        'MICHELLES_UID_HERE'
-    ];
 
-    // ... (Form state variables: title, slug, contentHTML, etc. - remain the same)
     const [title, setTitle] = useState('');
     const [slug, setSlug] = useState('');
     const [contentHTML, setContentHTML] = useState('');
@@ -44,8 +47,9 @@ export default function NewBlogPostPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [successSlug, setSuccessSlug] = useState(''); // To store the slug for the success message
 
-
+    // Authentication Effect (line 65 in your log referred to this effect)
     useEffect(() => {
         const auth = getAuth(firebaseApp);
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -62,19 +66,21 @@ export default function NewBlogPostPage() {
             }
         });
         return () => unsubscribe();
-    }, [router, currentSlug, allowedAdminUIDs]); // Removed allowedAdminUIDs as it's constant
+    }, [router]); // allowedAdminUIDs is a stable module-level constant. currentSlug is not used.
 
-    // handleTitleChange and handleSubmit remain the same
-    const handleTitleChange = (e) => { /* ... */
+    const handleTitleChange = (e) => {
         const newTitle = e.target.value;
         setTitle(newTitle);
         setSlug(generateSlug(newTitle));
     };
-    const handleSubmit = async (e) => { /* ... */
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setError('');
         setSuccessMessage('');
+        setSuccessSlug('');
+
 
         if (!title.trim()) {
           setError('Title is required.');
@@ -96,7 +102,7 @@ export default function NewBlogPostPage() {
 
         const postData = {
           title: title.trim(),
-          slug: finalSlug,
+          slug: finalSlug, // Pass the final slug to createBlogPost
           contentHTML: contentHTML,
           excerpt: excerpt.trim(),
           featuredImageURL: featuredImageURL.trim(),
@@ -114,8 +120,10 @@ export default function NewBlogPostPage() {
         };
 
         try {
-          const createdSlug = await createBlogPost(postData);
-          setSuccessMessage(`Post "${postData.title}" created successfully with slug: ${createdSlug}! Form has been reset.`);
+          const createdSlug = await createBlogPost(postData); // createBlogPost uses postData.slug
+          setSuccessMessage(`Post created successfully! Form has been reset.`);
+          setSuccessSlug(createdSlug); // Store slug for linking
+          // Reset form
           setTitle(''); setSlug(''); setContentHTML(''); setExcerpt('');
           setFeaturedImageURL(''); setTags(''); setCategories('');
           setSeoMetaDescription('');
@@ -150,10 +158,8 @@ export default function NewBlogPostPage() {
         );
     }
 
-    // --- Render form if admin ---
     return (
         <div style={containerStyle}>
-            {/* ... (rest of your NewPostPage form JSX as before) ... */}
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem'}}>
                 <h1 style={{ color: '#37b048', margin: 0 }}>Create New Blog Post</h1>
                 <button type="button" onClick={() => router.push('/admin/blog')} style={{...buttonStyle, backgroundColor: '#6c757d', padding: '8px 15px', fontSize: '0.9rem'}}>
@@ -161,8 +167,25 @@ export default function NewBlogPostPage() {
                 </button>
             </div>
 
+            {/* Line 176 (approx) where successMessage is shown */}
             {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '1rem', padding: '10px', border: '1px solid red', borderRadius: '4px' }}>{error}</p>}
-            {successMessage && <p style={{ color: 'green', textAlign: 'center', marginBottom: '1rem', padding: '10px', border: '1px solid green', borderRadius: '4px' }}>{successMessage}</p>}
+            {successMessage && (
+                <p style={{ color: 'green', textAlign: 'center', marginBottom: '1rem', padding: '10px', border: '1px solid green', borderRadius: '4px' }}>
+                    {successMessage}
+                    {successSlug && (
+                        <span>
+                            {' '}Post &ldquo;{title || 'Untitled Post'}&rdquo; (Slug: {successSlug}) created.
+                            <Link href={`/admin/blog/edit/${successSlug}`} style={{color: '#37b048', fontWeight: 'bold', marginLeft: '5px'}}>
+                                Edit it?
+                            </Link>
+                            {' '}
+                            <Link href={`/blog/${successSlug}`} target="_blank" rel="noopener noreferrer" style={{color: '#007bff', fontWeight: 'bold'}}>
+                                View it?
+                            </Link>
+                        </span>
+                    )}
+                </p>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <div style={formRowStyle}>
@@ -173,7 +196,8 @@ export default function NewBlogPostPage() {
                 <div style={formRowStyle}>
                 <label htmlFor="slug" style={labelStyle}>Slug (URL - auto-generated, can be edited):</label>
                 <input type="text" id="slug" value={slug} onChange={(e) => setSlug(generateSlug(e.target.value))} style={inputStyle} />
-                <small style={noteStyle}>If left blank, a slug will be generated from the title. Ensure it's URL-friendly (e.g., "my-new-post").</small>
+                {/* SOLUTION for unescaped entities */}
+                <small style={noteStyle}>If left blank, a slug will be generated from the title. Ensure it&apos;s URL-friendly (e.g., &ldquo;my-new-post&rdquo;).</small>
                 </div>
 
                 <div style={formRowStyle}>
@@ -190,6 +214,7 @@ export default function NewBlogPostPage() {
                 <div style={formRowStyle}>
                 <label htmlFor="featuredImageURL" style={labelStyle}>Featured Image URL (e.g., /images/blog/your-image.jpg or https://...):</label>
                 <input type="text" id="featuredImageURL" value={featuredImageURL} onChange={(e) => setFeaturedImageURL(e.target.value)} style={inputStyle} />
+                {/* SOLUTION for unescaped entities */}
                 <small style={noteStyle}>For V1, ensure image is in <code>public/images/blog/</code> and use path like <code>/images/blog/my-pic.jpg</code>.</small>
                 </div>
 
