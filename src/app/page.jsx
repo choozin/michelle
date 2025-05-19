@@ -38,6 +38,7 @@ import CalendarComponent from './components/calendar'; // Renamed to avoid confl
 import Testimonials from './components/testimonials';
 import WorkingMind from './components/working_mind';
 import Footer from './components/footer';
+import RecentBlogPosts from './components/recent_blog_posts';
 
 export default function HomePage() {
   const pathname = usePathname();
@@ -86,6 +87,7 @@ export default function HomePage() {
         <div id="calendar-section"> {/* Assuming calendar could be a scroll target */}
           <CalendarComponent />
         </div>
+        <RecentBlogPosts />
         <Success />
         <Subscribe
           divStyle="fullWidth"
