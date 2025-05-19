@@ -6,7 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getBlogPostBySlugForAdmin, updateBlogPost, generateSlug } from '@/lib/blogDataService'; // Make sure generateSlug is exported if you use it here
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app as firebaseApp } from '@/lib/firebaseConfig';
+import { firebaseApp } from '@/lib/firebaseConfig';
 
 // Re-use styles from NewPostPage or AdminDashboard for consistency
 const formRowStyle = { marginBottom: '15px', display: 'flex', flexDirection: 'column' };

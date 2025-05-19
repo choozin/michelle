@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { app as firebaseApp } from '@/lib/firebaseConfig';
+import { firebaseApp } from '@/lib/firebaseConfig';
 
 // Inline Styles
 const containerStyle = {

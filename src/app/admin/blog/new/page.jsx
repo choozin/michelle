@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createBlogPost, generateSlug } from '@/lib/blogDataService';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app as firebaseApp } from '@/lib/firebaseConfig';
+import { firebaseApp } from '@/lib/firebaseConfig';
 import Link from 'next/link'; // Import Link
 
 // ... (keep all your style consts) ...

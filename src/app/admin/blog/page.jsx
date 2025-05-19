@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getAllBlogPostsForAdmin, deleteBlogPost, generateSamplePost } from '@/lib/blogDataService'; // Ensure generateSamplePost is imported
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app as firebaseApp } from '@/lib/firebaseConfig';
+import { firebaseApp } from '@/lib/firebaseConfig';
 
 // ... (all your style consts: tableStyle, thStyle, etc. - keep them as they are)
 const tableStyle = { width: '100%', borderCollapse: 'collapse', marginTop: '1.5rem', fontSize: '0.9rem' };
