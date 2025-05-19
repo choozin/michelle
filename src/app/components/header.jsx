@@ -46,7 +46,7 @@ export default function Header({ currentSlug: initialCurrentSlug, navOpened, set
     const navLinks = [
         { label: 'Home', href: '/', slug: 'home' },
         { label: 'About Me', href: '/#about-me-section', slug: 'about-me-section' },
-        { label: 'The Working Mind', href: '/#working-mind-section', slug: 'working-mind-section' }, // Added for example
+        { label: 'The Working Mind', href: '/the-working-mind', slug: 'the-working-mind' }, // Added for example
         { label: 'Courses', href: '/courses', slug: 'courses' }, // Example page link
         { label: 'My Blog', href: '/blog', slug: 'blog' },
         { label: 'Online Resources', href: '/resources', slug: 'resources' },
