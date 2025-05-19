@@ -166,6 +166,7 @@ const TheWorkingMindPage = () => {
                             textShadow: '0 1px 3px rgba(0,0,0,0.4)',
                         }}
                     >
+                        {/* Corrected: Canada's -> Canada&apos;s */}
                         Empower your team with Canada&apos;s leading evidence-based mental health program, facilitated by Michelle Harding.
                     </motion.p>
                     <motion.div variants={itemVariants} style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
@@ -204,19 +205,19 @@ const TheWorkingMindPage = () => {
             </motion.section>
 
             {/* Introduction Section */}
-            {/* Line 173 area */}
+            {/* Line 173 area in Vercel log (this is the approximate location) */}
             <motion.section
                 id="intro-twm"
                 style={{ padding: 'clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem)', textAlign: 'center', backgroundColor: '#fff' }}
-                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", delay: 0.1, staggerChildren: 0.2 } }}
-                viewport={{ once: true, amount: 0.1 }}
+                initial="hidden" // Changed from whileInView for initial load, or keep whileInView if preferred.
+                animate="visible" // Simpler animation for the first content section after hero.
                 variants={sectionVariants}
             >
                 <motion.p
                     variants={itemVariants}
                     style={{ fontSize: 'clamp(1.05rem, 2vw, 1.2rem)', lineHeight: 1.7, maxWidth: '800px', margin: '0 auto 1.5rem auto', color: '#4A4A4A' }}
                 >
-                    {/* SOLUTION for unescaped entities */}
+                    {/* SOLUTION for unescaped entities at line 173:54 */}
                     In today&apos;s demanding work environments, prioritizing mental health isn&apos;t just a benefit—it&apos;s a necessity for a thriving, productive, and resilient workforce. &ldquo;The Working Mind&rdquo; (TWM), developed by the Mental Health Commission of Canada, offers a transformative approach to workplace mental wellness.
                 </motion.p>
                 <motion.p
@@ -316,6 +317,7 @@ const TheWorkingMindPage = () => {
                     variants={itemVariants}
                     style={{ fontSize: 'clamp(1.05rem, 2vw, 1.2rem)', lineHeight: 1.7, margin: '0 auto 2.5rem auto', opacity: 0.9, maxWidth: '750px' }}
                 >
+                    {/* Corrected: "The Working Mind" and it's */}
                     &ldquo;The Working Mind&rdquo; is more than just training; it&apos;s a catalyst for cultural change. This evidence-based program is designed to:
                 </motion.p>
                 <div style={{
@@ -422,7 +424,7 @@ const TheWorkingMindPage = () => {
             </motion.section>
 
             {/* Final Call to Action Section */}
-            {/* Line 450 area */}
+            {/* Line 450 area in Vercel log */}
             <motion.section
                 id="cta-twm"
                 style={{
@@ -446,7 +448,7 @@ const TheWorkingMindPage = () => {
                     variants={itemVariants}
                     style={{ fontSize: 'clamp(1.05rem, 2.1vw, 1.25rem)', maxWidth: '700px', margin: '0 auto 2.5rem auto', lineHeight: 1.7, opacity: 0.9 }}
                 >
-                    {/* SOLUTION for unescaped entities */}
+                    {/* SOLUTION for unescaped entities at line 450:64 and 450:82 */}
                     Partner with Michelle Harding to implement &ldquo;The Working Mind.&rdquo; Let&apos;s create a culture where every individual feels supported, understood, and empowered to bring their best self to work.
                 </motion.p>
                 <motion.div variants={itemVariants} style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>

@@ -1,12 +1,18 @@
 // src/app/admin/login/page.jsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react'; // Import Suspense
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { firebaseApp } from '@/lib/firebaseConfig'; // Corrected import
+import { firebaseApp } from '@/lib/firebaseConfig';
 
-// --- Style Constants (keep as they are in your file) ---
+// Define allowedAdminUIDs outside the component for stable reference
+const allowedAdminUIDs = [
+    'Lc2qRorT0zWMcEiIetpIHI5yOg73', // Cam's UID
+    'MICHELLES_UID_HERE' // Replace with Michelle's actual UID - REMEMBER TO REPLACE THIS
+];
+
+// Style constants
 const containerStyle = {
     maxWidth: '400px',
     margin: '5rem auto',
@@ -23,35 +29,40 @@ const inputStyle = { padding: '10px', border: '1px solid #ccc', borderRadius: '4
 const buttonStyle = { padding: '12px 20px', backgroundColor: '#37b048', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold', transition: 'background-color 0.2s ease' };
 const errorStyle = { color: 'red', marginBottom: '1rem', fontSize: '0.9rem' };
 
-// SOLUTION for exhaustive-deps: Define allowedAdminUIDs outside the component
-const allowedAdminUIDs = [
-    'Lc2qRorT0zWMcEiIetpIHI5yOg73', // Cam's UID
-    'MICHELLES_UID_HERE' // Replace with Michelle's actual UID - REMEMBER TO REPLACE THIS
-];
 
-export default function AdminLoginPage() {
+// Inner component that uses useSearchParams
+function LoginForm() {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const searchParams = useSearchParams(); // This hook requires Suspense
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
+    // Get redirectUrl once, it won't change unless searchParams changes,
+    // which would re-render this component anyway due to Suspense.
     const redirectUrl = searchParams.get('redirect') || '/admin/blog';
 
-    // Auth check useEffect (line 53 in your log referred to this effect)
     useEffect(() => {
         const auth = getAuth(firebaseApp);
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user && allowedAdminUIDs.includes(user.uid)) {
-                router.replace(redirectUrl);
+            if (user) {
+                // allowedAdminUIDs is stable from the outer scope
+                if (allowedAdminUIDs.includes(user.uid)) {
+                    router.replace(redirectUrl);
+                } else {
+                    // If logged in but not admin, they shouldn't be here.
+                    // Can optionally sign them out or show a message before login form appears.
+                    setIsCheckingAuth(false); // Allow login form to show for re-attempt or different user
+                }
             } else {
-                setIsCheckingAuth(false);
+                setIsCheckingAuth(false); // No user, show login form
             }
         });
         return () => unsubscribe();
-    }, [router, redirectUrl]); // allowedAdminUIDs removed as it's a stable module-level constant
+    }, [router, redirectUrl]); // redirectUrl depends on searchParams, which is handled by Suspense
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -60,12 +71,13 @@ export default function AdminLoginPage() {
         const auth = getAuth(firebaseApp);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            // Check UID again after login attempt
             if (!allowedAdminUIDs.includes(userCredential.user.uid)) {
                 setError("Login successful, but you are not authorized for the admin panel.");
-                // Consider signing out non-admin users immediately
-                await auth.signOut(); // Sign out non-admin users
+                await auth.signOut(); // Sign out non-admin users immediately
             } else {
-                 router.replace(redirectUrl); // Explicit redirect on successful admin login
+                // onAuthStateChanged will usually handle the redirect, but can do it explicitly too
+                router.replace(redirectUrl);
             }
         } catch (err) {
             setError("Login failed: " + err.message);
@@ -106,10 +118,22 @@ export default function AdminLoginPage() {
                         required
                     />
                 </div>
-                <button type="submit" style={{...buttonStyle, backgroundColor: isLoading ? '#ccc' : '#37b048'}} disabled={isLoading}>
+                <button type="submit" style={{ ...buttonStyle, backgroundColor: isLoading ? '#ccc' : '#37b048' }} disabled={isLoading}>
                     {isLoading ? 'Logging in...' : 'Login'}
                 </button>
             </form>
         </div>
+    );
+}
+
+// Main page component wraps LoginForm in Suspense
+export default function AdminLoginPage() {
+    // Fallback UI can be a simple loading message or a skeleton screen
+    const fallbackUI = <p style={{ textAlign: 'center', marginTop: '5rem', fontSize: '1.2rem' }}>Loading login form...</p>;
+
+    return (
+        <Suspense fallback={fallbackUI}>
+            <LoginForm />
+        </Suspense>
     );
 }
