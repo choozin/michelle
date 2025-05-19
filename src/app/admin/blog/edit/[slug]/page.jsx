@@ -66,7 +66,7 @@ export default function EditBlogPostPage() {
             }
         });
         return () => unsubscribe();
-    }, [router, currentSlug]); // allowedAdminUIDs is constant, not needed if defined outside
+    }, [router, currentSlug, allowedAdminUIDs]); // allowedAdminUIDs is constant, not needed if defined outside
 
     // Data Fetching Effect (runs after auth is confirmed and isAdmin is true)
     const fetchPostData = useCallback(async () => {

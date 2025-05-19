@@ -68,7 +68,7 @@ export default function AdminBlogDashboard() {
             }
         });
         return () => unsubscribe();
-    }, [router]); // allowedAdminUIDs is constant
+    }, [router, currentSlug, allowedAdminUIDs]); // allowedAdminUIDs is constant
 
     useEffect(() => {
         if (authStatus.isAdmin) {

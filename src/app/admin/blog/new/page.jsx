@@ -62,7 +62,7 @@ export default function NewBlogPostPage() {
             }
         });
         return () => unsubscribe();
-    }, [router]); // Removed allowedAdminUIDs as it's constant
+    }, [router, currentSlug, allowedAdminUIDs]); // Removed allowedAdminUIDs as it's constant
 
     // handleTitleChange and handleSubmit remain the same
     const handleTitleChange = (e) => { /* ... */

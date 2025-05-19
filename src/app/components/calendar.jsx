@@ -1,7 +1,7 @@
 // src/app/components/Calendar.jsx
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCog, FaSeedling } from 'react-icons/fa';
 import { FiChevronLeft, FiChevronRight, FiAlertTriangle, FiCheckCircle, FiInfo } from 'react-icons/fi';
@@ -13,8 +13,11 @@ import {
 } from '@/lib/calendarDataService';
 
 const Calendar = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = useMemo(() => { // Wrap in useMemo
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return d;
+    }, []);
 
     const [currentDisplayDate, setCurrentDisplayDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
     const [selectedFullDate, setSelectedFullDate] = useState(null);
