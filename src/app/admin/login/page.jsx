@@ -4,9 +4,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { firebaseApp } from '@/lib/firebaseConfig';
+import { firebaseApp } from '@/lib/firebaseConfig'; // Corrected import
 
-// Inline Styles
+// --- Style Constants (keep as they are in your file) ---
 const containerStyle = {
     maxWidth: '400px',
     margin: '5rem auto',
@@ -23,9 +23,10 @@ const inputStyle = { padding: '10px', border: '1px solid #ccc', borderRadius: '4
 const buttonStyle = { padding: '12px 20px', backgroundColor: '#37b048', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold', transition: 'background-color 0.2s ease' };
 const errorStyle = { color: 'red', marginBottom: '1rem', fontSize: '0.9rem' };
 
+// SOLUTION for exhaustive-deps: Define allowedAdminUIDs outside the component
 const allowedAdminUIDs = [
     'Lc2qRorT0zWMcEiIetpIHI5yOg73', // Cam's UID
-    'MICHELLES_UID_HERE' // Replace with Michelle's actual UID
+    'MICHELLES_UID_HERE' // Replace with Michelle's actual UID - REMEMBER TO REPLACE THIS
 ];
 
 export default function AdminLoginPage() {
@@ -39,19 +40,18 @@ export default function AdminLoginPage() {
 
     const redirectUrl = searchParams.get('redirect') || '/admin/blog';
 
-    // Check if user is already logged in and an admin, then redirect
+    // Auth check useEffect (line 53 in your log referred to this effect)
     useEffect(() => {
         const auth = getAuth(firebaseApp);
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user && allowedAdminUIDs.includes(user.uid)) {
-                router.replace(redirectUrl); // User is admin, redirect them
+                router.replace(redirectUrl);
             } else {
-                setIsCheckingAuth(false); // Not an admin or not logged in, show login form
+                setIsCheckingAuth(false);
             }
         });
         return () => unsubscribe();
-    }, [router, redirectUrl, allowedAdminUIDs]);
-
+    }, [router, redirectUrl]); // allowedAdminUIDs removed as it's a stable module-level constant
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -60,11 +60,10 @@ export default function AdminLoginPage() {
         const auth = getAuth(firebaseApp);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            // onAuthStateChanged will handle the redirect if successful and admin
-            // If not an admin, they will stay here or be redirected by the main admin page's auth check
             if (!allowedAdminUIDs.includes(userCredential.user.uid)) {
                 setError("Login successful, but you are not authorized for the admin panel.");
-                auth.signOut(); // Sign out non-admin users
+                // Consider signing out non-admin users immediately
+                await auth.signOut(); // Sign out non-admin users
             } else {
                  router.replace(redirectUrl); // Explicit redirect on successful admin login
             }
