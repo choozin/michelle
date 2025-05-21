@@ -23,7 +23,7 @@ const uidReminderStyle = { ...reminderNoteStyle, backgroundColor: '#d1ecf1', col
 // SOLUTION for exhaustive-deps: Define allowedAdminUIDs outside the component
 const allowedAdminUIDs = [
     'Lc2qRorT0zWMcEiIetpIHI5yOg73',
-    'MICHELLES_UID_HERE' // REMEMBER TO REPLACE THIS
+    'Lc2qRorT0zWMcEiIetpIHI5yOg73' // REMEMBER TO REPLACE THIS
 ];
 
 export default function AdminBlogDashboard() {
@@ -190,8 +190,6 @@ export default function AdminBlogDashboard() {
                     <li style={{ marginLeft: '15px' }}><code>src/app/admin/blog/page.jsx</code> (this file)</li>
                     <li style={{ marginLeft: '15px' }}><code>src/app/admin/blog/new/page.jsx</code></li>
                     <li style={{ marginLeft: '15px' }}><code>src/app/admin/blog/edit/[slug]/page.jsx</code> (when created)</li>
-                    {/* Line 194 area */}
-                    <li>Michelle&apos;s UID: &lsquo;MICHELLES_UID_HERE&rsquo; (placeholder - update this)</li>
                 </ul>
             </div>
 
