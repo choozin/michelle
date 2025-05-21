@@ -23,7 +23,7 @@ const uidReminderStyle = { ...reminderNoteStyle, backgroundColor: '#d1ecf1', col
 // SOLUTION for exhaustive-deps: Define allowedAdminUIDs outside the component
 const allowedAdminUIDs = [
     'Lc2qRorT0zWMcEiIetpIHI5yOg73',
-    'Lc2qRorT0zWMcEiIetpIHI5yOg73' // REMEMBER TO REPLACE THIS
+    'P3yQFO4uHyY0YywDa3PwWnFELXy1' // REMEMBER TO REPLACE THIS
 ];
 
 export default function AdminBlogDashboard() {
