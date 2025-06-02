@@ -39,6 +39,7 @@ import Testimonials from './components/testimonials';
 import WorkingMind from './components/working_mind';
 import Footer from './components/footer';
 import RecentBlogPosts from './components/recent_blog_posts';
+import PricingSection from './components/pricing';
 
 export default function HomePage() {
   const pathname = usePathname();
@@ -88,6 +89,7 @@ export default function HomePage() {
           <CalendarComponent />
         </div>
         <RecentBlogPosts />
+        <PricingSection />
         <Success />
         <Subscribe
           divStyle="fullWidth"

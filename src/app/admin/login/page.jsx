@@ -9,7 +9,7 @@ import { firebaseApp } from '@/lib/firebaseConfig';
 // Define allowedAdminUIDs outside the component for stable reference
 const allowedAdminUIDs = [
     'Lc2qRorT0zWMcEiIetpIHI5yOg73', // Cam's UID
-    'MICHELLES_UID_HERE' // Replace with Michelle's actual UID - REMEMBER TO REPLACE THIS
+    'P3yQFO4uHyY0YywDa3PwWnFELXy1' // Replace with Michelle's actual UID - REMEMBER TO REPLACE THIS
 ];
 
 // Style constants

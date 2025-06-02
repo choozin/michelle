@@ -49,6 +49,7 @@ export default function Header({ currentSlug: initialCurrentSlug, navOpened, set
         { label: 'The Working Mind', href: '/the-working-mind', slug: 'the-working-mind' }, // Added for example
         { label: 'Courses', href: '/courses', slug: 'courses' }, // Example page link
         { label: 'My Blog', href: '/blog', slug: 'blog' },
+        { label: 'Pricing', href: '/pricing', slug: 'pricing' },
         { label: 'Online Resources', href: '/resources', slug: 'resources' },
         { label: 'Contact Me', href: '/contact', slug: 'contact' },
     ];
